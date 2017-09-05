@@ -8,6 +8,7 @@ Javascript api exposed through getAttribution and returning JSON object to event
 
 Sample API output:
 
+```
 {
 	“message” : {
 	“iad-attribution” = true;
@@ -22,9 +23,11 @@ Sample API output:
 	},
 	...
 }
+```
 
 # CommonJS Usage
 
+```
 var win = Ti.UI.createWindow({
 	backgroundColor:'white'
 });
@@ -49,19 +52,22 @@ var removeListener = function(e){
 	iadattributes.removeEventListener("analyticsInfo", eventListenerAtt);
 };
 win.addEventListener('close', removeListener);
+```
 
 # Alloy Usage
 
-index.xml
+### index.xml
 
+```
 <Alloy>
 	<Window id="win" class="container" onClose="removeListener">
 		<Label id="lblText" height="Titanium.UI.SIZE" width="Titanium.UI.SIZE"></Label>
 	</Window>
 </Alloy>
+```
+### index.js
 
-index.js
-
+```
 var iadattributes = require('com.gaurang.iadattributes');
 Ti.API.info("module is => " + iadattributes);
 
@@ -79,4 +85,4 @@ var removeListener = function(e){
 };
 
 $.win.open();
-
+```
