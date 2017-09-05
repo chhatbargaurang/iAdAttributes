@@ -91,16 +91,13 @@
 - (void)getAnaliticsDataWithBlockNew {
     
     if (![[ADClient sharedClient] respondsToSelector:@selector(requestAttributionDetailsWithBlock:)]) {
-        //callback([[NSString alloc]initWithFormat:@"{message : \"API is too older\"}"]);
-        [self fireEvent:@"analyticsInfo" withObject:@{@"message" : @"API is too older"}];
-        
+        [self fireEvent:@"analyticsInfo" withObject:@{@"message" : @"API is too older"}];        
         return;
     }
     
     [[ADClient sharedClient] requestAttributionDetailsWithBlock:^(NSDictionary *details, NSError *error) {
         if (error) {
             NSLog(@"requestAttributionDetailsWithBlock returned error: %@", error);
-            //            callback([[NSString alloc]initWithFormat:@"{message : \"%@\"}",error.localizedDescription]);
             [self fireEvent:@"analyticsInfo" withObject:@{@"message" : error.localizedDescription}];
             return;
         }
@@ -108,8 +105,6 @@
         NSDictionary *attributionInfo = details[@"Version3.1"];
         if (!attributionInfo) {
             NSLog(@"no details for version 3.1: %@", details);
-            
-            //            callback([[NSString alloc]initWithFormat:@"{message : \"No details for version 3.1: %@\"}",details]);
             [self fireEvent:@"analyticsInfo" withObject:@{@"message" : details}];
             
             return;
@@ -140,14 +135,11 @@
         NSString * string = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
         
         if (errorJson != nil){
-            //            callback([[NSString alloc]initWithFormat:@"{message : \"%@\"}",errorJson.localizedDescription]);
-            [self fireEvent:@"analyticsInfo" withObject:@{@"message" : errorJson.localizedDescription}];
+        	[self fireEvent:@"analyticsInfo" withObject:@{@"message" : errorJson.localizedDescription}];
         }
         else if (errorJson == nil && string != nil) {
-            //            callback(string);
             [self fireEvent:@"analyticsInfo" withObject:@{@"message" : string}];
         }else {
-            //            callback([[NSString alloc]initWithFormat:@"{message : \"Invalid Access\"}"]);
             [self fireEvent:@"analyticsInfo" withObject:@{@"message" : @"Invalid Access"}];
         }
     }];
@@ -159,15 +151,13 @@
 -(id)example:(id)args
 {
 	// example method
-    [self getAnaliticsDataWithBlockNew];
-//    [self fireEvent:@"testevent" withObject:@{@"name": @"foo"}];
 	return @"hello world";
     
 }
 -(id)getAttribution:(id)args
 {
     [self getAnaliticsDataWithBlockNew];
-    return @"Calling Attribution API";
+    return @"Calling Attribution API...";
 }
 
 -(id)exampleProp
